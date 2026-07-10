@@ -31,8 +31,8 @@ cell density per ROI varies markedly between centres, which is what makes the
 leave-one-centre-out setup a genuine generalization test.
 
 <p>
-<img src="docs/annotations-example.png" alt="ROI with dot annotations" height="300">
-<img src="results/figures/fig_eda_cohort.png" alt="Cohort overview" width="550" height="300">
+<img src="docs/annotations-example.png" alt="ROI with dot annotations" width="500" height="300">
+<img src="results/figures/fig_eda_cohort.png" alt="Cohort overview" width="500" height="300">
 </p>
 
 *Top: an annotated ROI (red = lymphocytes, yellow = monocytes) with a zoomed
