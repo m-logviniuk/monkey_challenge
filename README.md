@@ -32,12 +32,13 @@ leave-one-centre-out setup a genuine generalization test.
 
 <p>
 <img src="docs/annotations-example.png" alt="ROI with dot annotations" height="300">
-<img src="results/figures/fig_eda_cohort.png" alt="Cohort overview" width="500" height="300">
+<img src="results/figures/fig_eda_cohort.png" alt="Cohort overview" width="550" height="300">
 </p>
 
-*Left: an annotated ROI (red = lymphocytes, yellow = monocytes) with a zoomed
+*Top: an annotated ROI (red = lymphocytes, yellow = monocytes) with a zoomed
 PAS view — source: [monkey.grand-challenge.org/dataset](https://monkey.grand-challenge.org/dataset/).
-Right: cohort composition from `results/eda_summary.json`.*
+
+Bottom: cohort composition from `results/eda_summary.json`.*
 
 - Dataset (AWS Marketplace): <https://aws.amazon.com/marketplace/pp/prodview-r2b3mcqqaijge>
 - Challenge: <https://monkey.grand-challenge.org/>
