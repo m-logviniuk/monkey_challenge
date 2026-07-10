@@ -1,0 +1,22 @@
+{
+  "n_cases": 81,
+  "n_cells": 89727,
+  "per_centre": {
+    "A": {
+      "cases": 26,
+      "cells": 41673
+    },
+    "B": {
+      "cases": 17,
+      "cells": 15650
+    },
+    "C": {
+      "cases": 20,
+      "cells": 21321
+    },
+    "D": {
+      "cases": 18,
+      "cells": 11083
+    }
+  }
+}

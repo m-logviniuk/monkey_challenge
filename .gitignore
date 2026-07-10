@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Virtual environments
+venv/
+.venv/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Checkpoints, data, and packed cases are never committed (kept on Drive)
+checkpoints/
+data/
+*.pt
+*.pth
+*.h5
+
+# Runtime detection outputs and bundles (the figures under results/ are kept)
+results/*_points.csv
+results/predictions/
+*.zip

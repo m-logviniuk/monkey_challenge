@@ -1,0 +1,26 @@
+# Not needed in the runtime image
+tests/
+docs/
+scripts/
+results/
+notebooks/
+.github/
+requirements-dev.txt
+
+# Checkpoints / data / cells are never baked into the image
+checkpoints/
+data/
+*.pt
+*.pth
+*.h5
+
+# Python / tooling
+__pycache__
+*.py[cod]
+.pytest_cache
+.ruff_cache
+*.egg-info
+
+# Git
+.git
+.gitignore

@@ -1,0 +1,14 @@
+# Pinned runtime dependencies for the MONKEY detection pipeline.
+#
+# torch: training and inference run on torch 2.6.0 (CUDA 12.6 wheels) on
+# Colab. Install the whole torch trio in one line so the ABI matches:
+#   pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 \
+#     --index-url https://download.pytorch.org/whl/cu126
+# For CPU-only use (tests / the offline smoke path) install the CPU build:
+#   pip install torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+torch==2.6.0
+
+numpy==1.26.4
+scipy==1.13.0
+h5py==3.11.0
+tqdm==4.66.4
