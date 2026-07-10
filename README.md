@@ -23,23 +23,22 @@ The MONKEY training set is a multi-centre cohort of PAS-stained kidney
 transplant biopsies with dot annotations for two inflammatory-cell types. The
 annotations were guided by an immunohistochemistry (IHC) re-stain of the same
 slide (CD3/CD20 for lymphocytes, PU.1 for monocytes); the IHC is used only to
-place the dots and is **never** a model input — only the PAS scan is.
+place the dots and is **never** a model input - only the PAS scan is.
 
-The packed cohort used here is 81 cases across 4 centres (A–D) with 89,727
+The packed cohort used here is 81 cases across 4 centres (A-D) with 89,727
 annotated cells, class-imbalanced toward lymphocytes (65%) over monocytes (35%);
 cell density per ROI varies markedly between centres, which is what makes the
 leave-one-centre-out setup a genuine generalization test.
 
 <p>
 <img src="docs/annotations-example.png" alt="ROI with dot annotations" height="300">
-<img src="results/figures/fig_eda_cohort.png" alt="Cohort overview" height="300">
+<img src="results/figures/fig_eda_cohort.png" alt="Cohort overview" width="500" height="300">
 </p>
 
 *Left: an annotated ROI (red = lymphocytes, yellow = monocytes) with a zoomed
 PAS view — source: [monkey.grand-challenge.org/dataset](https://monkey.grand-challenge.org/dataset/).
 Right: cohort composition from `results/eda_summary.json`.*
 
-- Image source: <https://monkey.grand-challenge.org/dataset/>
 - Dataset (AWS Marketplace): <https://aws.amazon.com/marketplace/pp/prodview-r2b3mcqqaijge>
 - Challenge: <https://monkey.grand-challenge.org/>
 
@@ -47,10 +46,10 @@ Right: cohort composition from `results/eda_summary.json`.*
 
 The challenge defines two tasks, and this repository addresses both:
 
-- **Task 1 — inflammatory-cell detection:** find mononuclear leukocytes (MNLs)
+- **Task 1 - inflammatory-cell detection:** find mononuclear leukocytes (MNLs)
   without distinguishing the subtype (lymphocytes and monocytes pooled into one
   "inflammatory" class).
-- **Task 2 — subtype detection:** detect and separate the two subtypes,
+- **Task 2 - subtype detection:** detect and separate the two subtypes,
   lymphocytes and monocytes.
 
 The model emits one density channel per subtype; the combined inflammatory
@@ -85,9 +84,9 @@ The only interchangeable part is the **decoder head**:
 - **KAN:** a per-pixel cross-channel `KANLinear` (one learnable B-spline per
   input/output channel edge, grid size 4, spline order 3) → 1×1 projection.
 
-The two heads are parameter-matched by construction — a 3×3 conv holds `9·C²`
+The two heads are parameter-matched by construction - a 3×3 conv holds `9·C²`
 weights and the KAN head holds `C²·(G+K) + 2·C²`, so `G+K+2 = 9` makes them
-equal — which is what allows an honest conv-vs-KAN comparison where only the
+equal - which is what allows an honest conv-vs-KAN comparison where only the
 mechanism changes, not the capacity.
 
 | Parameter group | Count | Share |
@@ -99,13 +98,13 @@ mechanism changes, not the capacity.
 Relative to the 3D segmentation thesis (B-spline and Fourier KAN sites plus a
 YOTO/FiLM conditioner in a 3D U-Net), this is a deliberately smaller design: a
 single B-spline KAN layer as the decoder head of a 2D detection network. The
-question is the same — does a KAN site earn its place next to a
-parameter-matched convolution — but the setting is 2D point detection rather
+question is the same - does a KAN site earn its place next to a
+parameter-matched convolution - but the setting is 2D point detection rather
 than 3D segmentation.
 
 ## Metrics
 
-- **FROC (Free-Response ROC) score** — the challenge ranking metric. Sensitivity
+- **FROC (Free-Response ROC) score** - the challenge ranking metric. Sensitivity
   (recall) is measured at six allowed false-positive densities, FP/mm² ∈
   {10, 20, 50, 100, 200, 300}, and the FROC score is the mean sensitivity over
   those six points. A prediction is a true positive if its centre lies within
@@ -127,7 +126,7 @@ Training is leave-one-centre-out: four folds, each holding out one centre for
 validation and training on the other three, with per-epoch checkpoint/resume,
 ROI-masked foreground-weighted loss, and stain/geometric augmentation on the
 train folds only. Every case is then scored by the fold that never saw its
-centre, and the per-case matches are pooled before computing FROC — so the
+centre, and the per-case matches are pooled before computing FROC - so the
 headline is an out-of-fold, unseen-centre estimate, not a per-fold best.
 
 The table is the main model (convolutional head, stain augmentation), pooled
@@ -164,7 +163,7 @@ to its own metrics file. Both keep the exact backbone; only one factor changes.
 
 **Stain augmentation** (`metrics.json` vs `metrics_noaug.json`): HED stain
 jitter on the train folds did not improve cross-centre generalization on this
-cohort — the combined score is unchanged and the per-class effect is within
+cohort - the combined score is unchanged and the per-class effect is within
 noise.
 
 **Decoder head, conv vs parameter-matched KAN** (`metrics.json` vs
@@ -198,8 +197,8 @@ plotted and read directly. Reading the trained `kan_aug` head
   spread across many edges rather than a few dominant ones.
 - The per-edge curves are smooth and diverse (monotone, U-shaped, S-shaped),
   which is exactly the transparency a convolution cannot offer.
-- Honest caveat: this readability does **not** translate into a detection gain —
-  the KAN head scores below the convolution above — so here interpretability is
+- Honest caveat: this readability does **not** translate into a detection gain -
+  the KAN head scores below the convolution above - so here interpretability is
   the feature, not accuracy.
 
 <p><img src="results/figures/interpretability/kan_edge_functions.png" alt="KAN per-edge spline activations" height="300"></p>
@@ -212,7 +211,7 @@ plotted and read directly. Reading the trained `kan_aug` head
 - Stain augmentation did not help cross-centre generalization on this cohort.
 - The parameter-matched KAN decoder head did not beat the convolution on any
   class; its contribution is interpretable per-edge splines, not detection
-  quality — consistent with the thesis finding in 3D segmentation.
+  quality - consistent with the thesis finding in 3D segmentation.
 - The dataset scale, parameter envelope, and modest scores follow from the
   available compute budget rather than from an architectural preference; the
   point of the repository is a fair, reproducible comparison, not a leaderboard
