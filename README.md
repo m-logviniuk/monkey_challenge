@@ -1,11 +1,6 @@
 # The MONKEY challenge: Machine-learning for Optimal detection of iNflammatory cells in KidnEY transplant biopsies
 
-Detection and classification of inflammatory cells (lymphocytes and monocytes)
-in multi-centre PAS-stained kidney-transplant biopsies, for the MONKEY
-benchmark. A compact 2D U-Net regresses per-class density maps from dot
-annotations; local-maxima peak detection turns the maps into predicted cell
-locations. Scoring uses patient-level, leave-one-centre-out splits, so every
-reported number reflects performance on centres the model never trained on.
+This repository for the detection and classification of inflammatory cells (lymphocytes and monocytes) in multi-centre PAS-stained kidney-transplant biopsies, for the MONKEY benchmark. A compact 2D U-Net regresses per-class density maps from dot annotations; local-maxima peak detection turns the maps into predicted cell locations. Scoring uses patient-level, leave-one-centre-out splits, so every reported number reflects performance on centres the model never trained on.
 
 Automated inflammatory-cell counting matters for the Banff classification of
 transplant biopsies, where several lesion scores depend on how many lymphocytes
@@ -142,7 +137,7 @@ from `results/metrics.json`.
 
 <p><img src="results/figures/fig_froc_curves.png" alt="FROC curves" height="300"></p>
 
-Reading the numbers honestly:
+Observations:
 
 - Lymphocytes, the majority class, are detected best; monocytes are much harder
   (rarer, and near-zero recall at the strict 0.9 threshold), which drags the
